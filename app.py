@@ -9,8 +9,6 @@ from pathlib import Path  # 파일 경로를 다루는 도구
 
 import streamlit as st  # 웹앱을 만드는 도구
 
-from sheet_saver import save_result  # 기록원: 검사 결과를 구글 시트에 적는 함수
-
 
 # ========== 1. 데이터 불러오기 ==========
 
@@ -198,8 +196,6 @@ if "screen" not in st.session_state:   # 처음 열었을 때만
     st.session_state.screen = "start"   # 시작 화면부터 보여 줍니다
     st.session_state.current = 0        # 질문 순서 (0이 첫 번째 질문)
     st.session_state.answers = []       # 답안지 (질문마다 고른 번호 0 또는 1)
-    st.session_state.saved = False      # 이번 검사 결과를 시트에 저장했는지 (두 번 저장 막기)
-    st.session_state.save_error = None  # 저장에 실패했을 때의 오류 내용
 
 
 # ========== 5. 버튼을 누르면 할 일 ==========
@@ -207,8 +203,6 @@ if "screen" not in st.session_state:   # 처음 열었을 때만
 def start_test():  # 검사 시작
     st.session_state.answers = [None] * len(QUESTIONS)  # 답안지를 빈칸 12개로 준비합니다
     st.session_state.current = 0                         # 첫 질문부터
-    st.session_state.saved = False                       # 새 검사이니 아직 저장 전입니다
-    st.session_state.save_error = None                   # 지난 저장 오류를 지웁니다
     st.session_state.screen = "question"                 # 질문 화면으로 이동
 
 
@@ -229,24 +223,6 @@ def restart():  # 다시 하기
     st.session_state.answers = []       # 답안지를 비웁니다
     st.session_state.current = 0        # 질문 순서를 처음으로
     st.session_state.screen = "start"   # 시작 화면으로
-
-
-# ========== 5-1. 결과를 시트에 한 번만 저장 ==========
-
-def save_once(mbti, scores):
-    if st.session_state.saved:   # 이미 저장했으면
-        return                   # 아무것도 하지 않습니다 (두 번 저장 막기)
-    st.session_state.saved = True  # 저장을 시도했다고 먼저 적어 둡니다 (실패해도 다시 시도하지 않음)
-
-    letters = []                                            # 질문마다 고른 알파벳을 모을 곳
-    for question, answer in zip(QUESTIONS, st.session_state.answers):  # 질문과 고른 답을 짝지어 꺼냅니다
-        chosen = question["choices"][answer]                # 고른 선택지
-        letters.append(list(chosen["score"])[0])            # 그 선택지의 알파벳 (예: E)
-
-    try:  # 기록원에게 저장을 맡겨 보고
-        save_result(mbti, scores, letters)
-    except Exception as error:  # 실패하면 오류 내용만 적어 둡니다 (결과 화면은 그대로 보여 줌)
-        st.session_state.save_error = type(error).__name__
 
 
 # ========== 6. 점수 계산 ==========
@@ -368,11 +344,6 @@ def show_result():
         """,
         unsafe_allow_html=True,
     )  # 유형, 이름, 설명, 점수 막대
-
-    save_once(mbti, scores)  # 결과를 먼저 보여 준 뒤, 시트에 한 번만 저장합니다
-    if st.session_state.save_error:  # 저장에 실패했으면 경고만 띄웁니다
-        st.warning(f"결과를 기록하지 못했어요. 결과는 그대로 볼 수 있어요. ({st.session_state.save_error})")
-
     st.button("다시 하기", key="restart_btn", on_click=restart, width="stretch")  # 누르면 restart 실행
     st.markdown('<p class="center notice">재미로 보는 검사예요</p>', unsafe_allow_html=True)  # 작은 안내
 

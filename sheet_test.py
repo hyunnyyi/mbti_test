@@ -2,7 +2,7 @@
 # 구글 시트 저장 테스트 (아주 작은 Streamlit 앱)
 # 실행: streamlit run sheet_test.py
 # 필요한 비밀값 (.streamlit/secrets.toml 또는 Streamlit 배포 화면의 Secrets):
-#   [stats] sheet_url     : 구글 시트 주소
+#   sheet_url             : 구글 시트 주소
 #   [gcp_service_account] : 구글 서비스 계정 키
 # =========================================================
 
@@ -21,7 +21,7 @@ st.title("구글 시트 저장 테스트")  # 페이지 제목
 def get_sheet():
     key = dict(st.secrets["gcp_service_account"])          # 비밀값에서 서비스 계정 키를 꺼냅니다
     client = gspread.service_account_from_dict(key)        # 키로 구글에 로그인합니다
-    spreadsheet = client.open_by_url(st.secrets["stats"]["sheet_url"])  # [stats] 묶음의 주소로 시트 파일을 엽니다
+    spreadsheet = client.open_by_url(st.secrets["sheet_url"])  # 비밀값의 주소로 시트 파일을 엽니다
     return spreadsheet.sheet1                              # 첫 번째 시트(탭)를 돌려줍니다
 
 
@@ -37,7 +37,7 @@ if st.button("시트에 저장"):  # 버튼을 누르면
             sheet.append_row([now, text])                         # 시트 맨 아래에 [시간, 내용] 한 줄을 추가합니다
             st.success(f"저장했어요: {now} | {text}")              # 성공 메시지
         except (KeyError, StreamlitSecretNotFoundError):  # 비밀 설정 파일이 없거나, 그 안에 이름을 찾지 못했을 때
-            st.error("비밀값을 찾지 못했어요. secrets.toml에 [stats]의 sheet_url과 [gcp_service_account]가 있는지 확인해 주세요.")
+            st.error("비밀값을 찾지 못했어요. secrets.toml에 sheet_url과 [gcp_service_account]가 있는지 확인해 주세요.")
         except gspread.exceptions.SpreadsheetNotFound:  # 시트를 열 권한이 없거나 주소가 틀렸을 때
             st.error("시트를 열지 못했어요. 시트의 공유 버튼에서 서비스 계정 이메일(client_email)을 편집자로 추가했는지 확인해 주세요.")
         except Exception as error:  # 그 밖의 오류
