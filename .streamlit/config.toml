@@ -1,0 +1,8 @@
+# Streamlit 화면 설정 파일
+# 사용자의 컴퓨터가 다크 모드여도 항상 밝은 파스텔 화면으로 보이게 합니다
+
+[theme]
+base = "light"                 # 밝은 테마
+primaryColor = "#e5b8b7"       # 강조색: 연분홍
+backgroundColor = "#f1f5b6"    # 배경색: 연노랑
+textColor = "#404040"          # 글자색: 진회색
