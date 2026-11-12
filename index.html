@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- 이 문서가 HTML 파일임을 브라우저에게 알려 줍니다 -->
+<html lang="ko">
+
+<!-- ========== head: 화면에 보이지 않는 설정을 적는 곳 ========== -->
+<head>
+  <!-- 한글이 깨지지 않게 해 줍니다 -->
+  <meta charset="UTF-8">
+
+  <!-- 핸드폰에서도 화면 크기에 맞게 보이도록 해 줍니다 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 브라우저 탭에 표시되는 이름입니다 -->
+  <title>나의 MBTI 검사</title>
+
+  <!-- 귀여운 한글 글꼴(Jua)을 인터넷에서 불러옵니다 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
+
+  <!-- 색과 크기를 꾸미는 파일(style.css)을 불러옵니다 (다음 단계에서 만듭니다) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- ========== body: 화면에 실제로 보이는 내용을 적는 곳 ========== -->
+<body>
+
+  <!-- 배경 장식 동그라미 4개 -->
+  <div class="bubble bubble-1"></div>
+  <div class="bubble bubble-2"></div>
+  <div class="bubble bubble-3"></div>
+  <div class="bubble bubble-4"></div>
+
+  <!-- ==================== 화면 1: 시작 화면 ==================== -->
+  <!-- 처음에는 이 화면만 보입니다 -->
+  <section id="start-screen" class="screen card">
+    <!-- 제목: app.js가 questions.json의 app_name으로 채웁니다 -->
+    <h1 id="app-title">나의 MBTI 검사</h1>
+
+    <!-- 한줄소개 -->
+    <p class="intro">12개 질문으로 알아보는<br>나의 성격 유형</p>
+
+    <!-- 안내 문구: 문항 수는 app.js가 채웁니다 -->
+    <p class="info"><span id="question-count">12</span>문항 · 약 2분</p>
+
+    <!-- 검사 시작 버튼: 누르면 질문 화면으로 이동합니다 -->
+    <button id="start-btn" class="main-btn" type="button">검사 시작</button>
+
+    <!-- 작은 안내 문구 -->
+    <p class="notice">재미로 보는 검사예요</p>
+  </section>
+
+  <!-- ==================== 화면 2: 질문 화면 ==================== -->
+  <!-- hidden: 처음에는 숨겨 두고, 검사 시작을 누르면 보여 줍니다 -->
+  <section id="question-screen" class="screen card" hidden>
+    <!-- 맨 위 줄: 이전 버튼과 진행 숫자 -->
+    <div class="top-bar">
+      <!-- 이전 버튼: 앞 질문으로 돌아갑니다 (1번 질문에서는 숨깁니다) -->
+      <button id="back-btn" class="back-btn" type="button">&lt; 이전</button>
+
+      <!-- 진행 숫자: 예) 3 / 12 -->
+      <span id="progress-text">1 / 12</span>
+    </div>
+
+    <!-- 진행 막대: 바깥 회색 막대 안에서 색칠된 막대가 늘어납니다 -->
+    <div class="progress">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+
+    <!-- 질문 번호: 예) Q3 -->
+    <p id="question-number" class="question-number">Q1</p>
+
+    <!-- 질문 내용: app.js가 questions.json의 text로 채웁니다 -->
+    <h2 id="question-text" class="question-text">질문이 여기에 나와요</h2>
+
+    <!-- 선택지 버튼 2개: 누르면 답을 적고 다음 질문으로 넘어갑니다 -->
+    <div class="choices">
+      <button id="choice-1" class="choice-btn" type="button">선택지 1</button>
+      <button id="choice-2" class="choice-btn" type="button">선택지 2</button>
+    </div>
+  </section>
+
+  <!-- ==================== 화면 3: 결과 화면 ==================== -->
+  <!-- hidden: 처음에는 숨겨 두고, 12번째 답을 고르면 보여 줍니다 -->
+  <section id="result-screen" class="screen card" hidden>
+    <!-- 안내 문구 -->
+    <p class="result-label">당신의 유형은</p>
+
+    <!-- 4글자 유형: 예) INTP -->
+    <h2 id="result-type" class="result-type">????</h2>
+
+    <!-- 유형 이름과 한 줄 설명: app.js가 types.json에서 찾아 채웁니다 -->
+    <p id="result-name" class="result-name">유형 이름</p>
+    <p id="result-desc" class="result-desc">한 줄 설명</p>
+
+    <!-- 지표별 점수 막대 4줄 -->
+    <!-- 왼쪽 글자 점수만큼 막대 왼쪽이 색칠되고, 나머지는 오른쪽 글자 몫입니다 -->
+    <div class="scores">
+      <!-- E와 I 점수 -->
+      <div class="score-row">
+        <span class="letter">E</span>
+        <span id="score-E" class="num">0</span>
+        <div class="bar"><div id="fill-EI" class="bar-fill"></div></div>
+        <span id="score-I" class="num">0</span>
+        <span class="letter">I</span>
+      </div>
+
+      <!-- S와 N 점수 -->
+      <div class="score-row">
+        <span class="letter">S</span>
+        <span id="score-S" class="num">0</span>
+        <div class="bar"><div id="fill-SN" class="bar-fill"></div></div>
+        <span id="score-N" class="num">0</span>
+        <span class="letter">N</span>
+      </div>
+
+      <!-- T와 F 점수 -->
+      <div class="score-row">
+        <span class="letter">T</span>
+        <span id="score-T" class="num">0</span>
+        <div class="bar"><div id="fill-TF" class="bar-fill"></div></div>
+        <span id="score-F" class="num">0</span>
+        <span class="letter">F</span>
+      </div>
+
+      <!-- J와 P 점수 -->
+      <div class="score-row">
+        <span class="letter">J</span>
+        <span id="score-J" class="num">0</span>
+        <div class="bar"><div id="fill-JP" class="bar-fill"></div></div>
+        <span id="score-P" class="num">0</span>
+        <span class="letter">P</span>
+      </div>
+    </div>
+
+    <!-- 다시 하기 버튼: 답과 점수를 지우고 시작 화면으로 돌아갑니다 -->
+    <button id="restart-btn" class="main-btn" type="button">다시 하기</button>
+
+    <!-- 작은 안내 문구 -->
+    <p class="notice">재미로 보는 검사예요</p>
+  </section>
+
+  <!-- 화면을 움직이는 파일(app.js)을 불러옵니다 (다다음 단계에서 만듭니다) -->
+  <!-- 화면 내용이 모두 준비된 뒤에 실행되도록 body 맨 끝에 둡니다 -->
+  <script src="app.js"></script>
+
+</body>
+</html>

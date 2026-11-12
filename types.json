@@ -1,0 +1,18 @@
+{
+  "ISTJ": { "name": "믿음직한 계획 장인", "description": "정해진 일을 끝까지 해내요" },
+  "ISFJ": { "name": "다정한 수호자", "description": "주변을 조용히 챙겨요" },
+  "INFJ": { "name": "조용한 마음 탐험가", "description": "사람의 마음을 깊이 읽어요" },
+  "INTJ": { "name": "큰 그림 설계자", "description": "목표까지 가는 길을 그려요" },
+  "ISTP": { "name": "손재주 해결사", "description": "직접 만져 보며 고쳐요" },
+  "ISFP": { "name": "감성 예술가", "description": "나만의 색으로 표현해요" },
+  "INFP": { "name": "따뜻한 이상주의자", "description": "마음이 움직이는 일을 해요" },
+  "INTP": { "name": "호기심 연구가", "description": "왜?를 끝까지 파고들어요" },
+  "ESTP": { "name": "현장형 해결사", "description": "바로 부딪혀 해결해요" },
+  "ESFP": { "name": "분위기 메이커", "description": "어디서든 즐거움을 만들어요" },
+  "ENFP": { "name": "반짝이는 아이디어 뱅크", "description": "새로운 일에 먼저 뛰어들어요" },
+  "ENTP": { "name": "재치 있는 토론가", "description": "새 생각으로 판을 흔들어요" },
+  "ESTJ": { "name": "똑 부러진 관리자", "description": "일을 체계적으로 굴려요" },
+  "ESFJ": { "name": "친절한 분위기 지킴이", "description": "모두가 편하도록 챙겨요" },
+  "ENFJ": { "name": "든든한 리더", "description": "사람들의 성장을 도와요" },
+  "ENTJ": { "name": "거침없는 지휘관", "description": "목표를 향해 팀을 이끌어요" }
+}

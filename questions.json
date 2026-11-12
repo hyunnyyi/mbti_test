@@ -1,0 +1,113 @@
+{
+  "app_name": "나의 MBTI 검사",
+  "questions": [
+    {
+      "id": 1,
+      "dimension": "EI",
+      "text": "주말에 에너지를 채우는 방법은?",
+      "choices": [
+        { "text": "친구들과 약속을 잡는다", "score": { "E": 1 } },
+        { "text": "집에서 혼자 논다", "score": { "I": 1 } }
+      ]
+    },
+    {
+      "id": 2,
+      "dimension": "EI",
+      "text": "처음 간 모임에서 나는?",
+      "choices": [
+        { "text": "먼저 말을 건다", "score": { "E": 1 } },
+        { "text": "누가 말 걸 때까지 기다린다", "score": { "I": 1 } }
+      ]
+    },
+    {
+      "id": 3,
+      "dimension": "EI",
+      "text": "생각을 정리할 때 나는?",
+      "choices": [
+        { "text": "친구들과 이야기를 나누며 정리한다", "score": { "E": 1 } },
+        { "text": "혼자 적어 보며 정리한다", "score": { "I": 1 } }
+      ]
+    },
+    {
+      "id": 4,
+      "dimension": "SN",
+      "text": "새 과제를 받으면?",
+      "choices": [
+        { "text": "예시부터 찾아본다", "score": { "S": 1 } },
+        { "text": "전체 그림부터 그려본다", "score": { "N": 1 } }
+      ]
+    },
+    {
+      "id": 5,
+      "dimension": "SN",
+      "text": "여행 이야기에서 끌리는 건?",
+      "choices": [
+        { "text": "맛집 주소와 동선", "score": { "S": 1 } },
+        { "text": "그곳의 분위기와 이야기", "score": { "N": 1 } }
+      ]
+    },
+    {
+      "id": 6,
+      "dimension": "SN",
+      "text": "설명서를 볼 때 나는?",
+      "choices": [
+        { "text": "순서대로 따라한다", "score": { "S": 1 } },
+        { "text": "대충 보고 감으로 한다", "score": { "N": 1 } }
+      ]
+    },
+    {
+      "id": 7,
+      "dimension": "TF",
+      "text": "친구가 고민을 말하면?",
+      "choices": [
+        { "text": "해결방법을 알려준다", "score": { "T": 1 } },
+        { "text": "마음부터 공감해 준다", "score": { "F": 1 } }
+      ]
+    },
+    {
+      "id": 8,
+      "dimension": "TF",
+      "text": "팀 결정에서 중요한 건?",
+      "choices": [
+        { "text": "효율과 결과", "score": { "T": 1 } },
+        { "text": "모두의 기분", "score": { "F": 1 } }
+      ]
+    },
+    {
+      "id": 9,
+      "dimension": "TF",
+      "text": "듣고 싶은 칭찬은?",
+      "choices": [
+        { "text": "논리적이야", "score": { "T": 1 } },
+        { "text": "따뜻한 사람이야", "score": { "F": 1 } }
+      ]
+    },
+    {
+      "id": 10,
+      "dimension": "JP",
+      "text": "시험 공부는?",
+      "choices": [
+        { "text": "미리 계획표를 짠다", "score": { "J": 1 } },
+        { "text": "닥치면 몰아서 한다", "score": { "P": 1 } }
+      ]
+    },
+    {
+      "id": 11,
+      "dimension": "JP",
+      "text": "여행 짐은?",
+      "choices": [
+        { "text": "전날 체크리스트로", "score": { "J": 1 } },
+        { "text": "당일 아침에 대충", "score": { "P": 1 } }
+      ]
+    },
+    {
+      "id": 12,
+      "dimension": "JP",
+      "text": "약속이 갑자기 바뀌면?",
+      "choices": [
+        { "text": "불편하다", "score": { "J": 1 } },
+        { "text": "오히려 좋다", "score": { "P": 1 } }
+      ]
+    }
+  ]
+}

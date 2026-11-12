@@ -1,0 +1,339 @@
+/* =========================================================
+   나의 MBTI 검사 - 꾸미기 파일
+   핸드폰 화면을 기준으로 먼저 만들고,
+   맨 아래 @media 부분에서 태블릿과 컴퓨터 크기를 키웁니다.
+   ========================================================= */
+
+
+/* ========== 1. 색 이름 정하기 ========== */
+/* :root에 색을 이름으로 저장해 두면, 아래에서 var(--이름)으로 꺼내 씁니다 */
+/* 색을 바꾸고 싶으면 여기 한 곳만 고치면 됩니다 */
+:root {
+  --main: #f1f5b6;    /* 메인: 연노랑, 페이지 배경 */
+  --sub: #e5b8b7;     /* 보조: 연분홍, 큰 버튼과 E·S·T·J 쪽 */
+  --point: #92ccdc;   /* 포인트: 하늘색, 진행 막대와 I·N·F·P 쪽 */
+  --point-text: #337589; /* 포인트 글자: 하늘색을 진하게 해서 흰 바탕에서도 잘 읽히게 합니다 */
+  --text: #404040;    /* 글자: 진회색 */
+  --card: #ffffff;    /* 카드: 흰색 */
+  --line: #eeeeee;    /* 진행 막대의 빈 부분: 연회색 */
+}
+
+
+/* ========== 2. 기본 설정 ========== */
+
+/* 숨긴 화면(hidden)은 다른 규칙이 있어도 반드시 안 보이게 합니다 */
+[hidden] {
+  display: none !important;
+}
+
+/* 모든 요소의 너비 계산에 테두리와 안쪽 여백을 포함시킵니다 */
+* {
+  box-sizing: border-box;
+}
+
+/* 페이지 전체: 배경색을 깔고, 카드를 화면 가운데에 놓습니다 */
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 16px;                    /* 핸드폰 양옆 16px 여백 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--main);
+  color: var(--text);
+  font-family: "Jua", "Malgun Gothic", sans-serif;
+}
+
+/* 버튼도 페이지와 같은 글꼴을 쓰게 합니다 */
+button {
+  font-family: inherit;
+  color: var(--text);
+  cursor: pointer;
+}
+
+
+/* ========== 3. 배경 장식 동그라미 ========== */
+
+/* 동그라미 공통 모양: 화면에 고정되고, 카드 뒤에 흐리게 깔립니다 */
+.bubble {
+  position: fixed;
+  z-index: 0;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* 동그라미마다 위치, 크기, 색을 다르게 정합니다 */
+.bubble-1 { width: 90px;  height: 90px;  top: 6%;     left: 6%;   background: var(--sub); }
+.bubble-2 { width: 60px;  height: 60px;  top: 12%;    right: 10%; background: var(--point); }
+.bubble-3 { width: 70px;  height: 70px;  bottom: 8%;  left: 12%;  background: var(--point); }
+.bubble-4 { width: 110px; height: 110px; bottom: 4%;  right: 6%;  background: var(--sub); }
+
+
+/* ========== 4. 카드 (화면 3개의 공통 상자) ========== */
+
+/* 흰색 둥근 상자로, 화면 너비에 꽉 차게 합니다 */
+.card {
+  position: relative;
+  z-index: 1;                       /* 배경 동그라미보다 위에 보이게 합니다 */
+  width: 100%;
+  padding: 36px 22px;
+  text-align: center;
+  background: var(--card);
+  border-radius: 28px;
+  box-shadow: 0 10px 28px rgba(64, 64, 64, 0.12);
+  animation: fade-in 0.3s ease;     /* 화면이 나타날 때 살짝 떠오릅니다 */
+}
+
+/* 나타나는 움직임: 투명하고 조금 아래에 있다가 제자리로 옵니다 */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ========== 5. 큰 버튼 (검사 시작, 다시 하기) ========== */
+
+.main-btn {
+  width: 100%;
+  min-height: 56px;                 /* 손가락으로 누르기 쉬운 높이 */
+  padding: 14px 24px;
+  border: none;
+  border-radius: 999px;             /* 양 끝이 완전히 둥근 알약 모양 */
+  background: var(--sub);
+  font-size: 21px;
+  transition: transform 0.1s, filter 0.15s;
+}
+
+/* 마우스를 올리면 색이 조금 진해집니다 */
+.main-btn:hover {
+  filter: brightness(0.95);
+}
+
+/* 누르는 순간 살짝 작아집니다 */
+.main-btn:active {
+  transform: scale(0.96);
+}
+
+/* 누를 수 없는 상태(데이터를 읽는 중)일 때는 흐리게 보입니다 */
+.main-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+/* 작은 안내 문구 (재미로 보는 검사예요) */
+.notice {
+  margin: 18px 0 0;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+
+/* ========== 6. 시작 화면 ========== */
+
+/* 제목 */
+#app-title {
+  margin: 0 0 14px;
+  font-size: 34px;
+  font-weight: normal;
+}
+
+/* 한줄소개 */
+.intro {
+  margin: 0 0 18px;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+/* 12문항 · 약 2분 안내 */
+.info {
+  display: inline-block;
+  margin: 0 0 28px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--main);
+  font-size: 15px;
+}
+
+
+/* ========== 7. 질문 화면 ========== */
+
+/* 맨 위 줄: 이전 버튼은 왼쪽, 진행 숫자는 오른쪽 */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* 이전 버튼: 테두리 없는 글자 버튼 */
+.back-btn {
+  min-height: 40px;
+  padding: 0 4px;
+  border: none;
+  background: none;
+  font-size: 16px;
+}
+
+/* 진행 막대의 바깥(빈 부분) */
+.progress {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+/* 진행 막대의 색칠된 부분: app.js가 너비(width)를 바꿉니다 */
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--point);
+  transition: width 0.3s ease;      /* 너비가 부드럽게 늘어납니다 */
+}
+
+/* 질문 번호 (Q3) */
+.question-number {
+  margin: 28px 0 6px;
+  font-size: 18px;
+  color: var(--point-text);
+}
+
+/* 질문 내용 */
+.question-text {
+  margin: 0 0 28px;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 1.4;
+  word-break: keep-all;             /* 한글 단어가 중간에 잘리지 않게 합니다 */
+}
+
+/* 선택지 2개를 위아래로 쌓고, 사이를 띄웁니다 */
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;                        /* 잘못 누르지 않도록 버튼 사이 간격 */
+}
+
+/* 선택지 버튼 */
+.choice-btn {
+  width: 100%;
+  min-height: 56px;                 /* 손가락으로 누르기 쉬운 높이 */
+  padding: 14px 18px;
+  border: 2px solid var(--sub);
+  border-radius: 18px;
+  background: var(--card);
+  font-size: 18px;
+  line-height: 1.4;
+  word-break: keep-all;             /* 긴 문장은 단어 단위로 줄을 바꿉니다 */
+  transition: transform 0.1s, background 0.15s;
+}
+
+/* 마우스를 올리면 연분홍으로 살짝 칠해집니다 */
+/* (hover: hover)는 마우스가 있는 기기에서만 적용하라는 뜻입니다 */
+/* 핸드폰에서는 누른 뒤 색이 남아 다음 질문 버튼까지 칠해져 보여서 뺐습니다 */
+@media (hover: hover) {
+  .choice-btn:hover {
+    background: #fbeceb;
+  }
+}
+
+/* 누르는 순간 살짝 작아집니다 */
+.choice-btn:active {
+  transform: scale(0.97);
+}
+
+
+/* ========== 8. 결과 화면 ========== */
+
+/* 당신의 유형은 */
+.result-label {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* 4글자 유형 (가장 크게) */
+.result-type {
+  margin: 4px 0 8px;
+  font-size: 56px;
+  font-weight: normal;
+  letter-spacing: 4px;
+  color: var(--point-text);
+}
+
+/* 유형 이름 */
+.result-name {
+  margin: 0 0 6px;
+  font-size: 24px;
+}
+
+/* 한 줄 설명 */
+.result-desc {
+  margin: 0 0 26px;
+  font-size: 17px;
+  opacity: 0.8;
+}
+
+/* 점수 막대 4줄을 담는 상자 */
+.scores {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding: 18px 14px;
+  border-radius: 18px;
+  background: #fafafa;
+}
+
+/* 점수 한 줄: [글자] [점수] [막대] [점수] [글자] 를 가로로 놓습니다 */
+.score-row {
+  display: grid;
+  grid-template-columns: 18px 16px 1fr 16px 18px;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+}
+
+/* 점수 숫자는 조금 흐리게 */
+.num {
+  opacity: 0.7;
+}
+
+/* 막대 전체: 오른쪽 글자(I, N, F, P) 몫인 하늘색 */
+.bar {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--point);
+  overflow: hidden;
+}
+
+/* 막대 왼쪽: 왼쪽 글자(E, S, T, J) 몫인 분홍색, app.js가 너비를 바꿉니다 */
+.bar-fill {
+  width: 50%;
+  height: 100%;
+  background: var(--sub);
+  transition: width 0.5s ease;
+}
+
+
+/* ========== 9. 반응형: 화면이 넓어지면 크기를 키웁니다 ========== */
+/* @media는 "화면이 이 조건에 맞을 때만 안쪽 규칙을 적용해"라는 뜻입니다 */
+
+/* 태블릿: 화면 너비가 600px 이상일 때 */
+@media (min-width: 600px) {
+  .card { max-width: 480px; padding: 44px 36px; }
+  #app-title { font-size: 40px; }
+  .question-text { font-size: 26px; }
+  .result-type { font-size: 64px; }
+  .bubble { transform: scale(1.4); }   /* 넓은 화면에서는 동그라미도 크게 */
+}
+
+/* 컴퓨터: 화면 너비가 1024px 이상일 때 */
+@media (min-width: 1024px) {
+  .card { max-width: 540px; padding: 52px 44px; }
+  #app-title { font-size: 44px; }
+  .question-text { font-size: 28px; }
+  .result-type { font-size: 72px; }
+  .bubble { transform: scale(1.8); }
+}

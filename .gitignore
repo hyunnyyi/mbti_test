@@ -1,0 +1,50 @@
+# =========================================================
+# .gitignore: 여기에 적은 파일과 폴더는 깃허브에 올라가지 않습니다
+# 줄 맨 앞의 #은 설명(주석)이라 무시됩니다
+# =========================================================
+
+# ---------- 1. 비밀번호와 키 (절대 올리면 안 되는 파일) ----------
+
+# 환경 변수 파일: API 키, 비밀번호를 적어 두는 곳
+.env
+.env.*
+
+# Streamlit 비밀 설정 파일: 구글 시트 키 같은 비밀값을 넣는 곳
+.streamlit/secrets.toml
+
+# 구글 서비스 계정 키 파일 (gspread로 구글 시트에 접속할 때 쓰는 키)
+# 주의: *.json 전체를 막으면 questions.json, types.json도 안 올라가므로 이름으로 막습니다
+credentials.json
+client_secret*.json
+service_account*.json
+*service-account*.json
+token.json
+
+# 그 밖의 키와 인증서 파일
+*.key
+*.pem
+
+# ---------- 2. 파이썬이 자동으로 만드는 파일 ----------
+
+# 파이썬 실행 때 생기는 임시 파일
+__pycache__/
+*.pyc
+
+# 가상환경 폴더 (패키지 설치 폴더라 용량이 크고, requirements.txt로 다시 만들 수 있음)
+venv/
+.venv/
+
+# 주피터 노트북 자동 저장 폴더
+.ipynb_checkpoints/
+
+# ---------- 3. 운영체제와 편집기가 만드는 파일 ----------
+
+# 윈도우 미리보기 파일
+Thumbs.db
+desktop.ini
+
+# 맥 폴더 설정 파일
+.DS_Store
+
+# VS Code 개인 설정 폴더
+.vscode/
